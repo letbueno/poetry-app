@@ -1,17 +1,16 @@
 <script setup>
-import Article from '@/components/Article.vue'
 import { useArticles } from '@/stores/articles'
-import { useFavorites } from '@/stores/favorites'
-
+import Article from './Article.vue'
 import { storeToRefs } from 'pinia'
 import { useRouter } from 'vue-router'
 const router = useRouter()
 
 const articlesStore = useArticles()
-const favoritesStore = useFavorites()
-const { favoriteArticles } = storeToRefs(favoritesStore)
+const { returnArticles } = storeToRefs(articlesStore)
 
 articlesStore.getArticles()
+
+console.log(returnArticles)
 
 const goToArticleDetails = articleId => {
   router.push({ name: 'articleDetails', params: { id: articleId } }) // Adjust the route name as necessary
@@ -22,7 +21,7 @@ const goToArticleDetails = articleId => {
   <div class="article-container">
     <div class="article-content">
       <Article
-        v-for="article in favoriteArticles"
+        v-for="article in returnArticles"
         :key="article.id"
         @click="goToArticleDetails(article.id)"
       >

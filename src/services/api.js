@@ -1,11 +1,10 @@
 import axios from 'axios'
 
 const api = axios.create({
-  baseURL: 'https://newsapi.org/v2',
+  baseURL: 'https://poetrydb.org/',
 
   headers: {
     'Content-Type': 'application/json',
-    'Authorization ': 'Bearer baf0e004821642768fb3f40800f66b07',
   },
 })
 

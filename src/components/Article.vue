@@ -1,12 +1,16 @@
-<script setup></script>
+<script setup>
+import { defineProps } from 'vue'
+
+// Define props to receive data
+const props = defineProps({
+  title: String,
+  author: String,
+  lines: Array,
+})
+</script>
 
 <template>
   <div class="card">
-    <div class="image">
-      <slot name="image"></slot>
-    </div>
-
-    <!--NEWS CONTENT -->
     <div class="content">
       <div class="title">
         <p><slot name="title"></slot></p>
@@ -16,7 +20,7 @@
       </div>
     </div>
     <div class="social">
-      <div class="likes"><i class="fa fa-thumbs-up"></i> 23</div>
+      <div class="likes">FAV</div>
     </div>
   </div>
 </template>
@@ -33,22 +37,16 @@
   font-family: Arial;
   margin: 0 auto;
   transition: transform 0.3s ease;
+  cursor: pointer;
 }
 
 .card:hover {
   transform: scale(1.03);
 }
 
-.image {
-  border-radius: 3px 3px 0 0;
-  width: 280px;
-  overflow: hidden;
-  width: 280px;
-  max-height: 280px;
-}
-
 .content {
   padding: 20px;
+  color: white;
 }
 
 .title {
