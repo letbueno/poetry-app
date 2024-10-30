@@ -4,8 +4,8 @@ import { useFavorites } from '@/stores/favorites'
 import { storeToRefs } from 'pinia'
 import { defineProps } from 'vue'
 
-const props = defineProps({
-  id: Number | String,
+const { id, title, author, lines } = defineProps({
+  id: [Number, String],
   title: String,
   author: String,
   lines: Array,
@@ -24,10 +24,10 @@ const toggleArticleFavorite = articleId => {
   <div class="card" tabindex="0">
     <div class="content">
       <div class="title">
-        <p>{{ title }}</p>
+        <h3>{{ title }}</h3>
       </div>
       <div class="author">
-        <p>{{ author }}</p>
+        <span>BY {{ author }}</span>
       </div>
       <div class="text">
         <p v-for="(line, index) in lines.slice(0, 3)" :key="index">
@@ -53,16 +53,22 @@ const toggleArticleFavorite = articleId => {
 
 <style scoped>
 .card {
-  width: 280px;
+  max-width: 420px;
+  max-height: 280px;
+  height: 100%;
+  width: 100%;
   flex: 1 1 auto;
   color: white;
   border-radius: 3px;
   box-shadow:
     0 4px 6px 0 rgba(0, 0, 0, 0.2),
     0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  margin: 0 auto;
   transition: transform 0.3s ease;
   cursor: pointer;
+
+  span {
+    text-transform: uppercase;
+  }
 }
 
 .card:hover {

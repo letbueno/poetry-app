@@ -1,9 +1,9 @@
 <script setup>
-import Article from './Article.vue'
+import ArticleCard from './ArticleCard.vue'
 import { useRouter } from 'vue-router'
 import AuthorFilter from './AuthorFilter.vue'
 
-const props = defineProps({
+const { articles } = defineProps({
   articles: Array,
 })
 
@@ -18,7 +18,7 @@ const goToArticleDetails = articleId => {
   <section class="article-container" aria-labelledby="article-list-heading">
     <AuthorFilter />
     <div class="article-content">
-      <Article
+      <ArticleCard
         v-for="article in articles"
         :key="article.id"
         @click="goToArticleDetails(article.id)"
@@ -26,10 +26,8 @@ const goToArticleDetails = articleId => {
         :author="article.author"
         :lines="article.lines"
         :id="article.id"
-        role="listitem"
-        tabindex="0"
       >
-      </Article>
+      </ArticleCard>
     </div>
   </section>
 </template>
@@ -39,15 +37,21 @@ const goToArticleDetails = articleId => {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  max-width: 900px;
+  align-items: flex-start;
+  justify-items: self-start;
   padding: 16px;
+  max-width: 900px;
+  width: 100%;
 }
 
 .article-content {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
 
+  width: 100%;
   gap: 16px;
 }
 </style>

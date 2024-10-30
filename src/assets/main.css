@@ -17,10 +17,22 @@ h1 {
   color: var(--vt-c-black);
 }
 
+h3 {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-weight: 600;
+  color: var(--vt-c-black);
+}
+
 span {
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   font-weight: 400;
   color: var(--vt-c-text-light-2);
+}
+
+label {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-weight: 400;
+  color: var(--vt-c-black);
 }
 
 p {

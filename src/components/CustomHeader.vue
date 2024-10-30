@@ -1,35 +1,27 @@
 <script setup>
-import { RouterView } from 'vue-router'
+import { RouterLink, useRouter } from 'vue-router'
 
-import CustomHeader from './components/CustomHeader.vue'
+const router = useRouter()
+
+const goToHome = () => {
+  router.push({ name: 'home' })
+}
 </script>
 
 <template>
-  <div class="container">
-    <CustomHeader />
-    <RouterView />
-  </div>
+  <header class="header">
+    <h2 @click="goToHome">Poetry</h2>
+    <nav class="header-navigation">
+      <RouterLink to="/"><h4>Home</h4></RouterLink>
+      <RouterLink to="/favorites"><h4>Favorites</h4></RouterLink>
+    </nav>
+  </header>
 </template>
 
 <style scoped>
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
+h2 {
+  cursor: pointer;
 }
-
-.content {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  align-items: flex-start;
-  justify-items: self-start;
-  padding: 16px;
-  max-width: 900px;
-  width: 100%;
-}
-
 .header {
   height: 48px;
   padding: 16px;
@@ -45,19 +37,15 @@ import CustomHeader from './components/CustomHeader.vue'
 .header-navigation {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
 
 .header-navigation a {
-  font-size: 1.125rem;
   color: inherit;
   margin-left: 1.75rem;
   position: relative;
-  font-weight: 500;
-}
-
-.header-navigation a {
-  font-size: 1.125rem;
-  color: inherit;
+  font-weight: 400;
   text-decoration: none;
 }
 
