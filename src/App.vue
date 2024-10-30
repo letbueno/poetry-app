@@ -4,15 +4,13 @@ import { RouterLink, RouterView } from 'vue-router'
 
 <template>
   <div class="container">
-    <header>
-      <div class="wrapper">
-        <nav>
-          <RouterLink to="/">Home</RouterLink>
-          <RouterLink to="/favorites">Favorites</RouterLink>
-        </nav>
-      </div>
+    <header class="header">
+      <p>Poetry</p>
+      <nav class="header-navigation">
+        <RouterLink to="/">Home</RouterLink>
+        <RouterLink to="/favorites">Favorites</RouterLink>
+      </nav>
     </header>
-
     <RouterView />
   </div>
 </template>
@@ -21,36 +19,54 @@ import { RouterLink, RouterView } from 'vue-router'
 .container {
   display: flex;
   flex-direction: column;
-  gap: 16px;
   align-items: center;
 }
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
 
-nav {
+.header {
+  height: 48px;
+  padding: 16px;
+  position: sticky;
+  display: flex;
+  align-items: center;
   width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
+  justify-content: space-between;
+  background-color: black;
+  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.1);
 }
 
-nav a.router-link-exact-active {
-  color: var(--color-text);
+.header-navigation {
+  display: flex;
+  flex-wrap: wrap;
 }
 
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
+.header-navigation a {
+  font-size: 1.125rem;
+  color: inherit;
+  margin-left: 1.75rem;
+  position: relative;
+  font-weight: 500;
 }
 
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
+.header-navigation a {
+  font-size: 1.125rem;
+  color: inherit;
+  text-decoration: none;
 }
 
-nav a:first-of-type {
-  border: 0;
+.header-navigation a:hover:after {
+  transform: scalex(1);
+}
+
+.header-navigation a:after {
+  transition: 0.25s ease;
+  content: '';
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: currentcolor;
+  transform: scalex(0);
+  position: absolute;
+  bottom: -2px;
+  left: 0;
 }
 </style>

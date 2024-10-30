@@ -25,9 +25,9 @@ const toggleArticleFavorite = article => {
 <template>
   <div class="article-details">
     <h1>{{ article.title }}</h1>
-    <p>
-      <strong>{{ article.author }}</strong>
-    </p>
+
+    <span>BY {{ article.author }}</span>
+
     <p v-for="(line, lineIndex) in article.lines" :key="lineIndex">
       {{ line }}
     </p>
@@ -44,38 +44,15 @@ const toggleArticleFavorite = article => {
 
 <style scoped>
 .article-details {
-  border-radius: 8px;
-  padding: 16px;
-  max-width: 600px;
-  margin: 20px auto;
+  padding: 16px 24px;
+  width: 900px;
+  margin: 24px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   font-family: Arial, sans-serif;
-}
 
-.article-title {
-  font-size: 24px;
-
-  margin: 0 0 10px;
-}
-
-.article-image {
-  width: 100%;
-  height: auto;
-  border-radius: 4px;
-  margin-bottom: 12px;
-}
-
-.article-description {
-  font-size: 16px;
-  line-height: 1.6;
-  color: #555;
-  margin-bottom: 12px;
-}
-
-.article-date {
-  font-size: 14px;
-  color: #777;
-  margin-top: 10px;
+  span {
+    text-transform: uppercase;
+  }
 }
 
 .favorite-button {

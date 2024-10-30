@@ -15,18 +15,19 @@ const favoritesStore = useFavorites()
 const articlesStore = useArticles()
 const { isFavorite } = storeToRefs(favoritesStore)
 
-console.log(props)
-
 const toggleArticleFavorite = articleId => {
   favoritesStore.toggleFavorite(articlesStore.getArticle(articleId))
 }
 </script>
 
 <template>
-  <div class="card">
+  <div class="card" tabindex="0">
     <div class="content">
       <div class="title">
         <p>{{ title }}</p>
+      </div>
+      <div class="author">
+        <p>{{ author }}</p>
       </div>
       <div class="text">
         <p v-for="(line, index) in lines.slice(0, 3)" :key="index">
@@ -39,6 +40,10 @@ const toggleArticleFavorite = articleId => {
         @click.stop="toggleArticleFavorite(id)"
         class="favorite-button"
         :class="{ 'is-favorite': isFavorite }"
+        :aria-pressed="isFavorite(id)"
+        :aria-label="
+          isFavorite(id) ? 'Remove from favorites' : 'Add to favorites'
+        "
       >
         {{ isFavorite(id) ? 'Unfavorite' : 'Favorite' }}
       </button>
@@ -72,6 +77,13 @@ const toggleArticleFavorite = articleId => {
 .title {
   font-weight: 800;
   color: hsl(0, 0%, 14%);
+  padding-bottom: 10px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.author {
+  font-weight: 600;
+  color: #494949;
   padding-bottom: 10px;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }

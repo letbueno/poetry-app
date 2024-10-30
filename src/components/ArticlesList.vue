@@ -1,8 +1,7 @@
 <script setup>
-import { useArticles } from '@/stores/articles'
 import Article from './Article.vue'
-import { storeToRefs } from 'pinia'
 import { useRouter } from 'vue-router'
+import AuthorFilter from './AuthorFilter.vue'
 
 const props = defineProps({
   articles: Array,
@@ -10,40 +9,29 @@ const props = defineProps({
 
 const router = useRouter()
 
-const articlesStore = useArticles()
-const { returnArticles, getAuthors } = storeToRefs(articlesStore)
-
 const goToArticleDetails = articleId => {
   router.push({ name: 'articleDetails', params: { id: articleId } })
-}
-
-const handleAuthorFilter = event => {
-  articlesStore.setAuthorFilter(event.target.value)
 }
 </script>
 
 <template>
-  <div class="article-container">
-    <label for="author-select">Filter by Author:</label>
-    <select id="author-select" @change="handleAuthorFilter">
-      <option value="">All Authors</option>
-      <option v-for="author in getAuthors" :key="author" :value="author">
-        {{ author }}
-      </option>
-    </select>
+  <section class="article-container" aria-labelledby="article-list-heading">
+    <AuthorFilter />
     <div class="article-content">
       <Article
-        v-for="article in returnArticles"
+        v-for="article in articles"
         :key="article.id"
         @click="goToArticleDetails(article.id)"
         :title="article.title"
         :author="article.author"
         :lines="article.lines"
         :id="article.id"
+        role="listitem"
+        tabindex="0"
       >
       </Article>
     </div>
-  </div>
+  </section>
 </template>
 
 <style scoped>

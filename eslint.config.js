@@ -15,8 +15,8 @@ export default [
   },
 
   js.configs.recommended,
-  ...pluginVue.configs['flat/essential'],
-  
+  pluginVue.configs.essential,
+
   {
     ...pluginVitest.configs.recommended,
     files: ['src/**/__tests__/*'],

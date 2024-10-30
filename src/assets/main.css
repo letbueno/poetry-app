@@ -3,11 +3,28 @@
 html,
 body {
   height: 100vh;
-  width: 100vw;
   margin: 0;
 }
 
 #app {
   height: inherit;
   width: inherit;
+}
+
+h1 {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-weight: 600;
+  color: var(--vt-c-black);
+}
+
+span {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-weight: 400;
+  color: var(--vt-c-text-light-2);
+}
+
+p {
+  font-weight: 400;
+  color: var(--vt-c-black);
+  font-family: 'Times New Roman', Times, serif;
 }
