@@ -3,7 +3,7 @@ name: Deploy Vue App to GitHub Pages
 on:
   push:
     branches:
-      - staging
+      - main
 
 jobs:
   build-and-deploy:
@@ -23,6 +23,10 @@ jobs:
 
       - name: Build project
         run: yarn build
+
+      - name: Run lint
+        run: |
+          yarn lint
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
