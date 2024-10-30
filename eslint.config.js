@@ -1,25 +1,28 @@
-import js from '@eslint/js'
+import eslintJs from '@eslint/js'
+import vueParser from 'vue-eslint-parser'
 import pluginVue from 'eslint-plugin-vue'
-import pluginVitest from '@vitest/eslint-plugin'
-import skipFormatting from '@vue/eslint-config-prettier/skip-formatting'
 
 export default [
   {
-    name: 'app/files-to-lint',
-    files: ['**/*.{js,mjs,jsx,vue}'],
+    ignores: ['**/dist/', '**/vendor/'],
   },
+
+  eslintJs.configs['recommended'],
 
   {
-    name: 'app/files-to-ignore',
-    ignores: ['**/dist/**', '**/dist-ssr/**', '**/coverage/**'],
+    files: ['**/*.{js,ts,jsx,tsx,vue}'],
+    languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+    },
+    rules: {},
   },
 
-  js.configs.recommended,
-  pluginVue.configs.essential,
-
+  ...pluginVue.configs['flat/essential'],
   {
-    ...pluginVitest.configs.recommended,
-    files: ['src/**/__tests__/*'],
+    files: ['**/*.vue'],
+    languageOptions: {
+      parser: vueParser,
+    },
   },
-  skipFormatting,
 ]
