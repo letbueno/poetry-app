@@ -4,11 +4,11 @@ import ArticlesList from '../components/ArticlesList.vue'
 import { storeToRefs } from 'pinia'
 
 const articlesStore = useArticles()
-const { returnArticles } = storeToRefs(articlesStore)
+const { returnArticles, isLoading } = storeToRefs(articlesStore)
 
 articlesStore.getArticles()
 </script>
 
 <template>
-  <ArticlesList :articles="returnArticles" />
+  <ArticlesList :articles="returnArticles" :isLoading="isLoading" />
 </template>

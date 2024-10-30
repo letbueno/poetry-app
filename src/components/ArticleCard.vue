@@ -2,7 +2,7 @@
 import { useArticles } from '@/stores/articles'
 import { useFavorites } from '@/stores/favorites'
 import { storeToRefs } from 'pinia'
-import { defineProps } from 'vue'
+import { computed, defineProps } from 'vue'
 
 const { id, title, author, lines } = defineProps({
   id: [Number, String],
@@ -14,6 +14,8 @@ const { id, title, author, lines } = defineProps({
 const favoritesStore = useFavorites()
 const articlesStore = useArticles()
 const { isFavorite } = storeToRefs(favoritesStore)
+
+const sliceLimit = computed(() => (lines.length < 3 ? lines.length : 3))
 
 const toggleArticleFavorite = articleId => {
   favoritesStore.toggleFavorite(articlesStore.getArticle(articleId))
@@ -30,9 +32,10 @@ const toggleArticleFavorite = articleId => {
         <span>BY {{ author }}</span>
       </div>
       <div class="text">
-        <p v-for="(line, index) in lines.slice(0, 3)" :key="index">
+        <p v-for="(line, index) in lines.slice(0, sliceLimit)" :key="index">
           {{ line }}
         </p>
+        <p v-if="lines.length > 3">...</p>
       </div>
     </div>
     <div class="social">
@@ -54,7 +57,8 @@ const toggleArticleFavorite = articleId => {
 <style scoped>
 .card {
   max-width: 420px;
-  max-height: 280px;
+  max-height: 420px;
+  min-height: 300px;
   height: 100%;
   width: 100%;
   flex: 1 1 auto;
@@ -126,6 +130,7 @@ const toggleArticleFavorite = articleId => {
   padding: 8px 16px;
   cursor: pointer;
   transition: background-color 0.3s;
+  bottom: 0;
 }
 
 .favorite-button:hover {

@@ -2,9 +2,11 @@
 import ArticleCard from './ArticleCard.vue'
 import { useRouter } from 'vue-router'
 import AuthorFilter from './AuthorFilter.vue'
+import SkeletonLoader from './SkeletonLoader.vue'
 
 const { articles } = defineProps({
   articles: Array,
+  isLoading: Boolean,
 })
 
 const router = useRouter()
@@ -18,16 +20,21 @@ const goToArticleDetails = articleId => {
   <section class="article-container" aria-labelledby="article-list-heading">
     <AuthorFilter />
     <div class="article-content">
-      <ArticleCard
-        v-for="article in articles"
-        :key="article.id"
-        @click="goToArticleDetails(article.id)"
-        :title="article.title"
-        :author="article.author"
-        :lines="article.lines"
-        :id="article.id"
-      >
-      </ArticleCard>
+      <template v-if="!isLoading">
+        <ArticleCard
+          v-for="article in articles"
+          :key="article.id"
+          @click="goToArticleDetails(article.id)"
+          :title="article.title"
+          :author="article.author"
+          :lines="article.lines"
+          :id="article.id"
+        >
+        </ArticleCard>
+      </template>
+      <template v-else>
+        <SkeletonLoader v-for="index in 20" :key="index" />
+      </template>
     </div>
   </section>
 </template>

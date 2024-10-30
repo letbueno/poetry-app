@@ -22,36 +22,53 @@ const toggleArticleFavorite = article => {
 </script>
 
 <template>
-  <div class="article-details">
-    <h1>{{ article.title }}</h1>
+  <div class="article-container">
+    <div class="article-details">
+      <h1>{{ article.title }}</h1>
 
-    <span>BY {{ article.author }}</span>
+      <span>BY {{ article.author }}</span>
 
-    <p v-for="(line, lineIndex) in article.lines" :key="lineIndex">
-      {{ line }}
-    </p>
+      <div>
+        <p v-for="(line, lineIndex) in article.lines" :key="lineIndex">
+          {{ line }}
+        </p>
+      </div>
 
-    <button
-      @click="toggleArticleFavorite(article)"
-      class="favorite-button"
-      :class="{ 'is-favorite': isFavorite }"
-    >
-      {{ isFavorite(article.id) ? 'Unfavorite' : 'Favorite' }}
-    </button>
+      <button
+        @click="toggleArticleFavorite(article)"
+        class="favorite-button"
+        :class="{ 'is-favorite': isFavorite }"
+      >
+        {{ isFavorite(article.id) ? 'Unfavorite' : 'Favorite' }}
+      </button>
+    </div>
   </div>
 </template>
 
 <style scoped>
 .article-details {
+  display: flex;
+  flex-direction: column;
   padding: 16px 24px;
-  width: 900px;
-  margin: 24px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
   font-family: Arial, sans-serif;
+  gap: 16px;
 
   span {
     text-transform: uppercase;
   }
+}
+
+.article-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: flex-start;
+  justify-items: self-start;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 24px;
+  max-width: 900px;
+  width: 100%;
 }
 
 .favorite-button {

@@ -5,6 +5,7 @@ export const useArticles = defineStore('news', {
   state: () => ({
     articles: [],
     selectedAuthor: null,
+    isLoading: false,
   }),
   getters: {
     returnArticles(state) {
@@ -25,6 +26,7 @@ export const useArticles = defineStore('news', {
   },
   actions: {
     async getArticles() {
+      this.isLoading = true // Set loading state to true
       try {
         const newsResponse = await api.get('/poemcount/100')
 
@@ -33,7 +35,10 @@ export const useArticles = defineStore('news', {
           id: index + 1,
         }))
       } catch (error) {
+        console.error('Error fetching articles:', error)
         return error
+      } finally {
+        this.isLoading = false // Ensure loading state is false after request
       }
     },
     setAuthorFilter(author) {
