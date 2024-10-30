@@ -1,6 +1,7 @@
 import eslintJs from '@eslint/js'
 import vueParser from 'vue-eslint-parser'
 import pluginVue from 'eslint-plugin-vue'
+import globals from 'globals'
 
 export default [
   {
@@ -14,6 +15,11 @@ export default [
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+        myCustomGlobal: 'readonly',
+      },
     },
     rules: {},
   },
