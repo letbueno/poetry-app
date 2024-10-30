@@ -14,17 +14,12 @@ const articlesStore = useArticles()
 const articleId = Number(route.params.id)
 const article = articlesStore.getArticle(articleId)
 
-console.log(article, articleId)
-
 const favoritesStore = useFavorites()
-const { favoriteArticles, isFavorite } = storeToRefs(favoritesStore)
+const { isFavorite } = storeToRefs(favoritesStore)
 
 const toggleArticleFavorite = article => {
   favoritesStore.toggleFavorite(article)
 }
-
-// Assuming the route parameter is named 'id'
-console.log(articleId, article)
 </script>
 
 <template>

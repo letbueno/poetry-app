@@ -8,7 +8,6 @@ const api = axios.create({
   },
 })
 
-// Interceptores para tratamento de requisições e respostas (opcional)
 api.interceptors.request.use(
   config => {
     return config
@@ -20,7 +19,7 @@ api.interceptors.request.use(
 
 api.interceptors.response.use(
   response => {
-    return response.data // Retorne apenas os dados
+    return response.data
   },
   error => {
     return Promise.reject(error)

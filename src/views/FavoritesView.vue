@@ -1,20 +1,18 @@
 <script setup>
 import Article from '@/components/Article.vue'
-import { useArticles } from '@/stores/articles'
 import { useFavorites } from '@/stores/favorites'
 
 import { storeToRefs } from 'pinia'
 import { useRouter } from 'vue-router'
 const router = useRouter()
 
-const articlesStore = useArticles()
 const favoritesStore = useFavorites()
 const { favoriteArticles } = storeToRefs(favoritesStore)
 
-articlesStore.getArticles()
+console.log(favoriteArticles)
 
 const goToArticleDetails = articleId => {
-  router.push({ name: 'articleDetails', params: { id: articleId } }) // Adjust the route name as necessary
+  router.push({ name: 'articleDetails', params: { id: articleId } })
 }
 </script>
 
@@ -25,15 +23,11 @@ const goToArticleDetails = articleId => {
         v-for="article in favoriteArticles"
         :key="article.id"
         @click="goToArticleDetails(article.id)"
+        :title="article.title"
+        :author="article.author"
+        :lines="article.lines"
+        :id="article.id"
       >
-        <template #title>{{ article.title }}</template>
-        <template #description>
-          <p v-for="(line, index) in article.lines.slice(0, 3)" :key="index">
-            {{ line }}
-          </p>
-          ...</template
-        >
-        <template #date>{{ article.author }}</template>
       </Article>
     </div>
   </div>

@@ -3,36 +3,44 @@ import { useArticles } from '@/stores/articles'
 import Article from './Article.vue'
 import { storeToRefs } from 'pinia'
 import { useRouter } from 'vue-router'
+
+const props = defineProps({
+  articles: Array,
+})
+
 const router = useRouter()
 
 const articlesStore = useArticles()
-const { returnArticles } = storeToRefs(articlesStore)
-
-articlesStore.getArticles()
-
-console.log(returnArticles)
+const { returnArticles, getAuthors } = storeToRefs(articlesStore)
 
 const goToArticleDetails = articleId => {
-  router.push({ name: 'articleDetails', params: { id: articleId } }) // Adjust the route name as necessary
+  router.push({ name: 'articleDetails', params: { id: articleId } })
+}
+
+const handleAuthorFilter = event => {
+  articlesStore.setAuthorFilter(event.target.value)
 }
 </script>
 
 <template>
   <div class="article-container">
+    <label for="author-select">Filter by Author:</label>
+    <select id="author-select" @change="handleAuthorFilter">
+      <option value="">All Authors</option>
+      <option v-for="author in getAuthors" :key="author" :value="author">
+        {{ author }}
+      </option>
+    </select>
     <div class="article-content">
       <Article
         v-for="article in returnArticles"
         :key="article.id"
         @click="goToArticleDetails(article.id)"
+        :title="article.title"
+        :author="article.author"
+        :lines="article.lines"
+        :id="article.id"
       >
-        <template #title>{{ article.title }}</template>
-        <template #description>
-          <p v-for="(line, index) in article.lines.slice(0, 3)" :key="index">
-            {{ line }}
-          </p>
-          ...</template
-        >
-        <template #date>{{ article.author }}</template>
       </Article>
     </div>
   </div>
@@ -43,13 +51,15 @@ const goToArticleDetails = articleId => {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  max-width: 900px;
+  padding: 16px;
 }
 
 .article-content {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  max-width: 900px;
+
   gap: 16px;
 }
 </style>

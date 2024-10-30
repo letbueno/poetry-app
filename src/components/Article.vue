@@ -1,26 +1,47 @@
 <script setup>
+import { useArticles } from '@/stores/articles'
+import { useFavorites } from '@/stores/favorites'
+import { storeToRefs } from 'pinia'
 import { defineProps } from 'vue'
 
-// Define props to receive data
 const props = defineProps({
+  id: Number | String,
   title: String,
   author: String,
   lines: Array,
 })
+
+const favoritesStore = useFavorites()
+const articlesStore = useArticles()
+const { isFavorite } = storeToRefs(favoritesStore)
+
+console.log(props)
+
+const toggleArticleFavorite = articleId => {
+  favoritesStore.toggleFavorite(articlesStore.getArticle(articleId))
+}
 </script>
 
 <template>
   <div class="card">
     <div class="content">
       <div class="title">
-        <p><slot name="title"></slot></p>
+        <p>{{ title }}</p>
       </div>
       <div class="text">
-        <slot name="description"></slot>
+        <p v-for="(line, index) in lines.slice(0, 3)" :key="index">
+          {{ line }}
+        </p>
       </div>
     </div>
     <div class="social">
-      <div class="likes">FAV</div>
+      <button
+        @click.stop="toggleArticleFavorite(id)"
+        class="favorite-button"
+        :class="{ 'is-favorite': isFavorite }"
+      >
+        {{ isFavorite(id) ? 'Unfavorite' : 'Favorite' }}
+      </button>
     </div>
   </div>
 </template>
@@ -34,7 +55,6 @@ const props = defineProps({
   box-shadow:
     0 4px 6px 0 rgba(0, 0, 0, 0.2),
     0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  font-family: Arial;
   margin: 0 auto;
   transition: transform 0.3s ease;
   cursor: pointer;
@@ -50,14 +70,16 @@ const props = defineProps({
 }
 
 .title {
-  font-weight: 700;
+  font-weight: 800;
   color: hsl(0, 0%, 14%);
   padding-bottom: 10px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .text {
   font-weight: 400;
   color: hsl(0, 0%, 30%);
+  font-family: 'Times New Roman', Times, serif;
 }
 
 .social {
@@ -76,5 +98,23 @@ const props = defineProps({
 
 .likes:hover {
   color: #1d1f20;
+}
+
+.favorite-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.favorite-button:hover {
+  background-color: #0056b3;
+}
+
+.is-favorite {
+  background-color: #ffc107; /* Change color if favorited */
 }
 </style>
