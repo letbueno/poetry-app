@@ -4,8 +4,9 @@ import { useRouter } from 'vue-router'
 import AuthorFilter from './AuthorFilter.vue'
 import SkeletonLoader from './SkeletonLoader.vue'
 
-const { articles } = defineProps({
+const { articles, authors, isLoading } = defineProps({
   articles: Array,
+  authors: Array,
   isLoading: Boolean,
 })
 
@@ -18,7 +19,7 @@ const goToArticleDetails = articleId => {
 
 <template>
   <section class="article-container" aria-labelledby="article-list-heading">
-    <AuthorFilter />
+    <AuthorFilter :authors="authors" />
     <div class="article-content">
       <template v-if="!isLoading">
         <ArticleCard

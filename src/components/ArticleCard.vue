@@ -3,6 +3,8 @@ import { useArticles } from '@/stores/articles'
 import { useFavorites } from '@/stores/favorites'
 import { storeToRefs } from 'pinia'
 import { computed, defineProps } from 'vue'
+import FavoriteIconOff from '../components/icons/favoriteOff.svg'
+import FavoriteIconOn from '../components/icons/favoriteOn.svg'
 
 const { id, title, author, lines } = defineProps({
   id: [Number, String],
@@ -18,47 +20,46 @@ const { isFavorite } = storeToRefs(favoritesStore)
 const sliceLimit = computed(() => (lines.length < 3 ? lines.length : 3))
 
 const toggleArticleFavorite = articleId => {
-  favoritesStore.toggleFavorite(articlesStore.getArticle(articleId))
+  favoritesStore.toggleFavorite(articlesStore.getArticleById(articleId))
 }
 </script>
 
 <template>
   <div class="card" tabindex="0">
-    <div class="content">
-      <div class="title">
-        <h3>{{ title }}</h3>
-      </div>
-      <div class="author">
-        <span>BY {{ author }}</span>
-      </div>
-      <div class="text">
-        <p v-for="(line, index) in lines.slice(0, sliceLimit)" :key="index">
-          {{ line }}
-        </p>
-        <p v-if="lines.length > 3">...</p>
-      </div>
+    <div class="title">
+      <h3>{{ title }}</h3>
+    </div>
+    <div class="author">
+      <span>BY {{ author }}</span>
+    </div>
+    <div class="text">
+      <p v-for="(line, index) in lines.slice(0, sliceLimit)" :key="index">
+        {{ line }}
+      </p>
+      <p v-if="lines.length > 3">...</p>
     </div>
     <div class="social">
-      <button
+      <img
+        :src="isFavorite(id) ? FavoriteIconOn : FavoriteIconOff"
+        alt="Favorite icon"
         @click.stop="toggleArticleFavorite(id)"
-        class="favorite-button"
-        :class="{ 'is-favorite': isFavorite }"
         :aria-pressed="isFavorite(id)"
         :aria-label="
           isFavorite(id) ? 'Remove from favorites' : 'Add to favorites'
         "
-      >
-        {{ isFavorite(id) ? 'Unfavorite' : 'Favorite' }}
-      </button>
+        class="favorite-icon"
+      />
     </div>
   </div>
 </template>
 
 <style scoped>
 .card {
+  display: flex;
+  flex-direction: column;
   max-width: 420px;
   max-height: 420px;
-  min-height: 300px;
+  min-height: 280px;
   height: 100%;
   width: 100%;
   flex: 1 1 auto;
@@ -69,6 +70,8 @@ const toggleArticleFavorite = articleId => {
     0 6px 20px 0 rgba(0, 0, 0, 0.19);
   transition: transform 0.3s ease;
   cursor: pointer;
+  padding: 20px;
+  position: relative;
 
   span {
     text-transform: uppercase;
@@ -77,11 +80,6 @@ const toggleArticleFavorite = articleId => {
 
 .card:hover {
   transform: scale(1.03);
-}
-
-.content {
-  padding: 20px;
-  color: white;
 }
 
 .title {
@@ -102,42 +100,14 @@ const toggleArticleFavorite = articleId => {
   font-weight: 400;
   color: hsl(0, 0%, 30%);
   font-family: 'Times New Roman', Times, serif;
+  flex-grow: 1;
 }
 
 .social {
-  font-weight: 400;
-  color: hsl(0, 0%, 50%);
-  padding: 20px;
-  text-align: right;
-}
-.likes {
-  display: inline;
-}
-
-.likes {
-  cursor: pointer;
-}
-
-.likes:hover {
-  color: #1d1f20;
-}
-
-.favorite-button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 8px 16px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  bottom: 0;
-}
-
-.favorite-button:hover {
-  background-color: #0056b3;
-}
-
-.is-favorite {
-  background-color: #ffc107; /* Change color if favorited */
+  display: flex;
+  align-self: flex-end;
+  margin-top: auto;
+  height: 32px;
+  width: 32px;
 }
 </style>

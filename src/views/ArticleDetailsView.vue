@@ -1,46 +1,48 @@
-<!-- ArticleDetails.vue -->
-
 <script setup>
-import { useRoute } from 'vue-router'
-import { useArticles } from '@/stores/articles'
-
 import { storeToRefs } from 'pinia'
 import { useFavorites } from '@/stores/favorites'
+import FavoriteIconOff from '../components/icons/favoriteOff.svg'
+import FavoriteIconOn from '../components/icons/favoriteOn.svg'
+import { useArticles } from '@/stores/articles'
+import { useRoute } from 'vue-router'
 
 const route = useRoute()
-const articlesStore = useArticles()
-
 const articleId = Number(route.params.id)
-const article = articlesStore.getArticle(articleId)
 
 const favoritesStore = useFavorites()
+const articlesStore = useArticles()
 const { isFavorite } = storeToRefs(favoritesStore)
 
-const toggleArticleFavorite = article => {
-  favoritesStore.toggleFavorite(article)
+const article = articlesStore.getArticleById(articleId)
+
+const toggleArticleFavorite = () => {
+  favoritesStore.toggleFavorite(articlesStore.getArticleById(articleId))
 }
 </script>
 
 <template>
-  <div class="article-container">
+  <div class="article-container" v-if="article">
     <div class="article-details">
       <h1>{{ article.title }}</h1>
-
       <span>BY {{ article.author }}</span>
-
       <div>
         <p v-for="(line, lineIndex) in article.lines" :key="lineIndex">
           {{ line }}
         </p>
       </div>
-
-      <button
-        @click="toggleArticleFavorite(article)"
-        class="favorite-button"
-        :class="{ 'is-favorite': isFavorite }"
-      >
-        {{ isFavorite(article.id) ? 'Unfavorite' : 'Favorite' }}
-      </button>
+      <div class="favorite">
+        <img
+          :src="isFavorite(article.id) ? FavoriteIconOn : FavoriteIconOff"
+          alt="Favorite icon"
+          @click.stop="toggleArticleFavorite(article.id)"
+          :aria-pressed="isFavorite(article.id)"
+          :aria-label="
+            isFavorite(article.id)
+              ? 'Remove from favorites'
+              : 'Add to favorites'
+          "
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -71,21 +73,18 @@ const toggleArticleFavorite = article => {
   width: 100%;
 }
 
-.favorite-button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 8px 16px;
+.title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.favorite {
+  display: flex;
+  align-self: flex-end;
+  margin-top: auto;
+  height: 32px;
+  width: 32px;
   cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.favorite-button:hover {
-  background-color: #0056b3;
-}
-
-.is-favorite {
-  background-color: #ffc107; /* Change color if favorited */
 }
 </style>

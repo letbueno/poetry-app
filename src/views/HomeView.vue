@@ -2,13 +2,22 @@
 import { useArticles } from '@/stores/articles'
 import ArticlesList from '../components/ArticlesList.vue'
 import { storeToRefs } from 'pinia'
+import { onMounted } from 'vue'
 
 const articlesStore = useArticles()
-const { returnArticles, isLoading } = storeToRefs(articlesStore)
+const { returnArticles, isLoading, getAuthors } = storeToRefs(articlesStore)
 
-articlesStore.getArticles()
+onMounted(() => {
+  if (returnArticles.value.length === 0) {
+    articlesStore.getArticles()
+  }
+})
 </script>
 
 <template>
-  <ArticlesList :articles="returnArticles" :isLoading="isLoading" />
+  <ArticlesList
+    :articles="returnArticles"
+    :authors="getAuthors"
+    :isLoading="isLoading"
+  />
 </template>

@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import api from '@/services/api'
 
-export const useArticles = defineStore('news', {
+export const useArticles = defineStore('articles', {
   state: () => ({
     articles: [],
     selectedAuthor: null,
@@ -16,9 +16,6 @@ export const useArticles = defineStore('news', {
       }
       return state.articles
     },
-    getArticle: state => {
-      return id => state.articles.find(article => article.id === id)
-    },
     getAuthors(state) {
       const authors = state.articles.map(article => article.author)
       return [...new Set(authors)]
@@ -26,9 +23,9 @@ export const useArticles = defineStore('news', {
   },
   actions: {
     async getArticles() {
-      this.isLoading = true // Set loading state to true
+      this.isLoading = true
       try {
-        const newsResponse = await api.get('/poemcount/100')
+        const newsResponse = await api.get('/random/100')
 
         this.articles = newsResponse.map((article, index) => ({
           ...article,
@@ -38,11 +35,14 @@ export const useArticles = defineStore('news', {
         console.error('Error fetching articles:', error)
         return error
       } finally {
-        this.isLoading = false // Ensure loading state is false after request
+        this.isLoading = false
       }
     },
     setAuthorFilter(author) {
       this.selectedAuthor = author
+    },
+    getArticleById(articleId) {
+      return this.articles.find(article => article.id === articleId)
     },
   },
 })

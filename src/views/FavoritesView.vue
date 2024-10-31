@@ -5,9 +5,9 @@ import { useFavorites } from '@/stores/favorites'
 import { storeToRefs } from 'pinia'
 
 const favoritesStore = useFavorites()
-const { favoriteArticles } = storeToRefs(favoritesStore)
+const { favoriteArticles, getFavoriteAuthors } = storeToRefs(favoritesStore)
 </script>
 
 <template>
-  <ArticlesList :articles="favoriteArticles" />
+  <ArticlesList :articles="favoriteArticles" :authors="getFavoriteAuthors" />
 </template>

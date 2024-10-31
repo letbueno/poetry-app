@@ -4,9 +4,14 @@ export const useFavorites = defineStore('favorites', {
   state: () => ({
     favoriteArticles: [],
   }),
+
   getters: {
-    isFavorite: state => articleId => {
-      return state.favoriteArticles.some(article => article.id === articleId)
+    isFavorite(state) {
+      return articleId =>
+        state.favoriteArticles.some(article => article.id === articleId)
+    },
+    getFavoriteAuthors(state) {
+      return [...new Set(state.favoriteArticles.map(article => article.author))]
     },
   },
   actions: {
