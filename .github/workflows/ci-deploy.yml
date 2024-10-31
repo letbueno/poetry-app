@@ -21,6 +21,13 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
+      - name: Run tests
+        run: yarn test
+
+      - name: Run lint
+        run: |
+          yarn lint
+
       - name: Build project
         run: yarn build
 
@@ -29,4 +36,3 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
-          enable_jekyll: true
