@@ -2,10 +2,6 @@
 
 This Vue.js app showcases a collection of 100 poems from the PoetryDB API. Users can explore details of each poem, favorite or unfavorite poems, and curate their personal favorites list.
 
-## Recommended IDE Setup
-
-(video)
-
 ## 📝 Features
 
 - List of 100 Poems: A diverse collection of 100 poems.
