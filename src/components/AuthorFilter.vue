@@ -1,5 +1,5 @@
 <script setup>
-import { useArticles } from '@/stores/articles'
+import { useArticles } from '../stores/articles'
 
 const { authors } = defineProps({
   authors: Array,

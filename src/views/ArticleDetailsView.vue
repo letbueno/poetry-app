@@ -1,9 +1,9 @@
 <script setup>
 import { storeToRefs } from 'pinia'
-import { useFavorites } from '@/stores/favorites'
+import { useFavorites } from '../stores/favorites'
 import FavoriteIconOff from '../components/icons/favoriteOff.svg'
 import FavoriteIconOn from '../components/icons/favoriteOn.svg'
-import { useArticles } from '@/stores/articles'
+import { useArticles } from '../stores/articles'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()

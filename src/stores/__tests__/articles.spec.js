@@ -1,9 +1,9 @@
 import { setActivePinia, createPinia } from 'pinia'
 import { useArticles } from '../articles'
-import api from '@/services/api'
+import api from '../services/api'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
-vi.mock('@/services/api')
+vi.mock('../services/api')
 
 describe('useArticles Store', () => {
   let store

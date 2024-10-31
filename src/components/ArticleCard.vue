@@ -1,6 +1,6 @@
 <script setup>
-import { useArticles } from '@/stores/articles'
-import { useFavorites } from '@/stores/favorites'
+import { useArticles } from '../stores/articles'
+import { useFavorites } from '../stores/favorites'
 import { storeToRefs } from 'pinia'
 import { computed, defineProps } from 'vue'
 import FavoriteIconOff from '../components/icons/favoriteOff.svg'

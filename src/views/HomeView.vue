@@ -1,5 +1,5 @@
 <script setup>
-import { useArticles } from '@/stores/articles'
+import { useArticles } from '../stores/articles'
 import ArticlesList from '../components/ArticlesList.vue'
 import { storeToRefs } from 'pinia'
 import { onMounted } from 'vue'

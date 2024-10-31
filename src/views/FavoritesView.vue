@@ -1,6 +1,6 @@
 <script setup>
-import ArticlesList from '@/components/ArticlesList.vue'
-import { useFavorites } from '@/stores/favorites'
+import ArticlesList from '../components/ArticlesList.vue'
+import { useFavorites } from '../stores/favorites'
 
 import { storeToRefs } from 'pinia'
 
