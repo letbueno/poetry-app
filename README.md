@@ -2,10 +2,6 @@
 
 This Vue.js app showcases a collection of 100 poems from the PoetryDB API. Users can explore details of each poem, favorite or unfavorite poems, and curate their personal favorites list.
 
-## Recommended IDE Setup
-
-(video)
-
 ## 📝 Features
 
 - List of 100 Poems: A diverse collection of 100 poems.
@@ -13,8 +9,6 @@ This Vue.js app showcases a collection of 100 poems from the PoetryDB API. Users
 - List of Favorite Poems: View all the poems you have marked as favorites.
 - Favorite/Unfavorite Poems: Easily mark poems as favorites and manage your favorites list.
 - View Poem Details: Click on any poem to see more information and explore its content.
-
-## Customize configuration
 
 ## 🌟 Why Use the PoetryDB API?
 
@@ -38,7 +32,7 @@ The PoetryDB API was selected for this project because it aligns perfectly with 
 ## 📊 Project Structure
 
 - src/router: Handles routing within the application.
-- src/stores: Manages the state of poems and encapsulates the discount calculation logic.
+- src/stores: Manages the state of poems and encapsulates the favorite poems logic.
 - src/views: Contains components that handle the API endpoint and display data to users.
 - src/components: Contains reusable UI components used throughout the app.
 

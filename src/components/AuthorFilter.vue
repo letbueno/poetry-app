@@ -28,5 +28,10 @@ const handleAuthorFilter = event => {
 .container {
   display: flex;
   flex-direction: row;
+  width: 350px;
+
+  select {
+    width: 100%;
+  }
 }
 </style>
