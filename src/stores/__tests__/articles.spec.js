@@ -70,7 +70,7 @@ describe('useArticles Store', () => {
       { id: 1, title: 'Poem 1', author: 'Author 1' },
       { id: 2, title: 'Poem 2', author: 'Author 2' },
     ]
-    const article = store.getArticle(2)
+    const article = store.getArticleById(2)
     expect(article).toEqual({ id: 2, title: 'Poem 2', author: 'Author 2' })
   })
 
