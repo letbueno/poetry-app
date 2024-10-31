@@ -70,8 +70,6 @@ For running the test suite
 yarn test
 ```
 
-### Lint with [ESLint](https://eslint.org/)
-
 ### 🎨 Code linting
 
 To check the code quality, use the following command:
