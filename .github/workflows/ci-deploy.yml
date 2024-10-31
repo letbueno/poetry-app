@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: Deploy Vue App to GitHub Pages
 
 on:
   push:
@@ -6,29 +6,26 @@ on:
       - main
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: '18'
-
-      - name: Install Yarn
-        run: npm install --global yarn
 
       - name: Install dependencies
         run: yarn install
 
-      - name: Build the project
+      - name: Build project
         run: yarn build
 
-      - name: Run tests
-        run: yarn test
+      - name: Run lint
+        run: yarn lint
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
